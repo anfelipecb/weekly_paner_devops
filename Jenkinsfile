@@ -12,6 +12,7 @@ pipeline {
     stage('Build') {
       steps {
         sh 'uv sync'
+        sh 'exit 1' // remove after failure
       }
     }
     stage('Package') {
@@ -27,7 +28,13 @@ pipeline {
     stage('Test') {
       when { anyOf { branch 'main'; branch 'master'; branch 'feature/*' } }
       steps {
-        sh 'uv run pytest tests/ || true'
+        sh '''
+          uv run pytest tests/ \
+            --cov=app \
+            --cov-report=xml:coverage.xml \
+            --cov-report=term \
+            || true
+        '''
       }
     }
     stage('SonarQube Analysis') {

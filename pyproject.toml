@@ -9,9 +9,14 @@ dependencies = [
     "psycopg2-binary>=2.9.9",
 ]
 
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
 [tool.uv]
 dev-dependencies = [
     "playwright>=1.58.0",
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
     "pytest-html>=4.2.0",
     "pytest-playwright>=0.7.1",
 ]
