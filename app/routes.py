@@ -18,6 +18,7 @@ DAY_NAMES = {
 @app.route("/")
 def index():
     """Serve the weekly planner page."""
+    _ = 0   # unused – will be reported as code smell on new code
     return render_template("index.html", day_names=DAY_NAMES)
 
 
