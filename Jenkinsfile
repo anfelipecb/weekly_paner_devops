@@ -30,6 +30,22 @@ pipeline {
         sh 'uv run pytest tests/ || true'
       }
     }
+    stage('SonarQube Analysis') {
+        steps {
+            withSonarQubeEnv('SonarQube') {
+                withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONAR_TOKEN')]) {
+                    sh 'sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN'
+            }
+            }
+        }
+    }
+    stage('Quality Gate') {
+        steps {
+            timeout(time: 5, unit: 'MINUTES') {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
     stage('Deploy') {
       when { anyOf { branch 'main'; branch 'master' } }
       steps {
