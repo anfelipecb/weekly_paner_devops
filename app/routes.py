@@ -1,4 +1,5 @@
 """Flask routes and API endpoints for the weekly planner."""
+import os # unused – SonarQube code smell
 from flask import render_template, jsonify, request
 
 from app import app
@@ -18,6 +19,7 @@ DAY_NAMES = {
 @app.route("/")
 def index():
     """Serve the weekly planner page."""
+    _ = 0   # unused – will be reported as code smell on new code
     return render_template("index.html", day_names=DAY_NAMES)
 
 
