@@ -1,5 +1,7 @@
 # Weekly Planner (Mon–Sun)
 
+*Author: Andres F. Camacho*
+
 This project contains a minimal Flask web application to track tasks by weekday (Monday through Sunday). The application uses a PostgreSQL backend, a Flask API, and a light, almost-white User Interface. The app is deployed with a CI/CD pipeline using Jenkins.
 
 ## Requirements
