@@ -14,6 +14,16 @@ pipeline {
         sh 'uv sync'
       }
     }
+    stage('Package') {
+        steps {
+        sh '''
+            mkdir -p dist
+            zip -r dist/planner-${BUILD_NUMBER}.zip \
+            app.py requirements.txt pyproject.toml README.md \
+            -x "*.pyc" -x ".git/*" -x "venv/*" -x ".venv/*" -x "*__pycache__*" -x "dist/*"
+        '''
+        }
+    }
     stage('Test') {
       when { anyOf { branch 'main'; branch 'master'; branch 'feature/*' } }
       steps {
@@ -26,5 +36,9 @@ pipeline {
         echo 'Deploy only on main/master'
       }
     }
+  }
+  post {
+    success {
+        archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
   }
 }
