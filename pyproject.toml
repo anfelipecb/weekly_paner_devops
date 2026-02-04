@@ -10,4 +10,8 @@ dependencies = [
 ]
 
 [tool.uv]
-dev-dependencies = []
+dev-dependencies = [
+    "playwright>=1.58.0",
+    "pytest-html>=4.2.0",
+    "pytest-playwright>=0.7.1",
+]

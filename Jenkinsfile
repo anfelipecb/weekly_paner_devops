@@ -47,6 +47,13 @@ pipeline {
             }
         }
     }
+    stage('Load Test') {
+      agent { label 'performance' } 
+      steps {
+        sh 'mkdir -p report'
+        sh 'k6 run load/planner_load.js 2>&1 | tee report/load-test.log'
+      }
+    }
     stage('Deploy') {
       when { anyOf { branch 'main'; branch 'master' } }
       steps {
@@ -57,6 +64,7 @@ pipeline {
   post {
     success {
         archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
+        archiveArtifacts artifacts: 'report/load-report.html,report/load-test.log', fingerprint: true, allowEmptyArchive: true
     }
   }
 }
