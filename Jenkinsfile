@@ -48,7 +48,6 @@ pipeline {
         }
     }
     stage('Load Test') {
-      agent { label 'performance' } 
       steps {
         sh 'mkdir -p report'
         sh 'k6 run load/planner_load.js 2>&1 | tee report/load-test.log'
