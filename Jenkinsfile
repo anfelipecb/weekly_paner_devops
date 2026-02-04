@@ -34,8 +34,10 @@ pipeline {
         steps {
             withSonarQubeEnv('SonarQube') {
                 withCredentials([string(credentialsId: 'sonarqube-token2', variable: 'SONAR_TOKEN')]) {
-                    sh 'sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN'
-            }
+                   withEnv(["PATH+SCANNER=/opt/homebrew/bin"]) {
+                        sh 'sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN'
+                    }
+                }
             }
         }
     }
