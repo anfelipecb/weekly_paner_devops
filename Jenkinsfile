@@ -86,14 +86,20 @@ pipeline {
     }
     failure {
         script {
-            def log = currentBuild.getLog(100).join('\n')
+            def logSnippet = ''
+                try {
+                logSnippet = currentBuild.rawBuild.getLog(100).join('\n')
+                } catch (Exception e) {
+                logSnippet = "(Log not available: ${e.message}. View full log: ${env.BUILD_URL}console)"
+                }
+            def msg = "Planner App: Build FAILED\nBranch: ${env.BRANCH_NAME}, Build #${env.BUILD_NUMBER}\nResult: ${currentBuild.currentResult}\n\nLast 100 lines of log:\n${logSnippet}"
             slackSend(
-                tokenCredentialId: 'slack-bot-token',
-                channel: '#planner-app',
-                color: 'danger',
-                message: "Planer App: Pipeline Build ${env.BUILD_NUMBER} failed \n Branch: ${env.BRANCH_NAME} \n Last 100 Lines of log:\n ${log}"
-                )
-            }
+            tokenCredentialId: 'slack-bot-token',
+            channel: '#planner-app',
+            color: 'danger',
+            message: msg
+            )
         }
+    }
     }
 }
