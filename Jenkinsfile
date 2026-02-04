@@ -32,12 +32,11 @@ pipeline {
     }
     stage('SonarQube Analysis') {
         steps {
-            withSonarQubeEnv('SonarQube') {
-                withCredentials([string(credentialsId: 'sonarqube-token2', variable: 'SONAR_TOKEN')]) {
-                   withEnv(["PATH+SCANNER=/opt/homebrew/bin"]) {
-                        sh 'sonar-scanner -Dsonar.host.url=http://localhost:9000 -Dsonar.login=$SONAR_TOKEN'
-                    }
-                }
+            script {
+                scannerHome = tool 'SonarScanner'   // same name as in Jenkins Tools
+            }
+            withSonarQubeEnv('SonarQube') {       // same name as in Jenkins → System → SonarQube servers
+            sh "${scannerHome}/bin/sonar-scanner"
             }
         }
     }
