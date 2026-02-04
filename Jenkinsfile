@@ -55,7 +55,6 @@ pipeline {
             sh 'k6 run load/planner_load.js 2>&1 | tee report/load-test.log'
         }
     }
-    }
     stage('Deploy') {
       when { anyOf { branch 'main'; branch 'master' } }
       steps {
