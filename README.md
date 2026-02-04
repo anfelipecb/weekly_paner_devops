@@ -1,4 +1,4 @@
-# Weekly Planner (Mon–Sun)
+# Weekly Planner (Mon–Sun) with CI/CD pipeline
 
 *Author: Andres F. Camacho*
 
