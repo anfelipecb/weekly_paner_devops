@@ -66,6 +66,24 @@ pipeline {
     success {
         archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
         archiveArtifacts artifacts: 'report/load-report.html,report/load-test.log', fingerprint: true, allowEmptyArchive: true
+        script {
+            if (env.BRANCH_NAME == 'main' || env.BRANCH_NAME == 'master') {
+                slackSend(channel: '#planner-app',
+                color: 'good',
+                message: "Planer App: Pipeline Build ${env.BUILD_NUMBER} succeeded \n Branch: ${env.BRANCH_NAME}"
+                )
+            }
+        }
     }
-  }
+    failure {
+        script {
+            def log = currentBuild.getLog(100).join('\n')
+            slackSend(
+                channel: '#planner-app',
+                color: 'danger',
+                message: "Planer App: Pipeline Build ${env.BUILD_NUMBER} failed \n Branch: ${env.BRANCH_NAME} \n Last 100 Lines of log:\n ${log}"
+                )
+            }
+        }
+    }
 }
