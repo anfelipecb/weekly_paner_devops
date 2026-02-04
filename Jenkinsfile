@@ -19,7 +19,7 @@ pipeline {
         sh '''
             mkdir -p dist
             zip -r dist/planner-${BUILD_NUMBER}.zip \
-            app.py requirements.txt pyproject.toml README.md \
+            app db static templates app.py requirements.txt pyproject.toml README.md \
             -x "*.pyc" -x ".git/*" -x "venv/*" -x ".venv/*" -x "*__pycache__*" -x "dist/*"
         '''
         }
@@ -40,5 +40,6 @@ pipeline {
   post {
     success {
         archiveArtifacts artifacts: 'dist/*.zip', fingerprint: true
+    }
   }
 }
