@@ -12,7 +12,6 @@ pipeline {
     stage('Build') {
       steps {
         sh 'uv sync'
-        sh 'exit 1' // remove after failure
       }
     }
     stage('Package') {
