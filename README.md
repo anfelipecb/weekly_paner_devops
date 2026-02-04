@@ -1,6 +1,6 @@
 # Weekly Planner (Mon–Sun)
 
-Minimal web app to track tasks by weekday (Monday through Sunday). PostgreSQL backend, Flask API, minimal almost-white UI.
+This repo contains a minimal web app to track tasks by weekday (Monday through Sunday). PostgreSQL backend, Flask API, with a light almost-white User Interface. The app is deployed with a CI/CD pipeline using Jenkins.
 
 ## Requirements
 
