@@ -1,0 +1,179 @@
+/* Minimal, almost-white weekly planner (Mon–Sun) */
+
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --border: #e8e8e8;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --accent: #333;
+  --accent-hover: #000;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 1.5rem;
+  line-height: 1.5;
+}
+
+header {
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem 0;
+  color: var(--text-muted);
+}
+
+.add-task {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.add-task form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: flex-end;
+}
+
+.add-task label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.add-task select,
+.add-task input[type="text"] {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-size: 0.95rem;
+  min-width: 120px;
+}
+
+.add-task input[type="text"] {
+  flex: 1;
+  min-width: 180px;
+}
+
+.add-task button {
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: var(--surface);
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.add-task button:hover {
+  background: var(--accent-hover);
+}
+
+.message {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.85rem;
+}
+
+.message.error {
+  color: #b00;
+}
+
+.message.success {
+  color: #0a0;
+}
+
+.week {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+}
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.75rem;
+}
+
+.day-column h3 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--bg);
+  font-size: 0.9rem;
+}
+
+.task-list li:last-child {
+  border-bottom: none;
+}
+
+.task-list input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+}
+
+.task-list .task-title {
+  flex: 1;
+}
+
+.task-list .task-title.done {
+  text-decoration: line-through;
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .days {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .days {
+    grid-template-columns: 1fr;
+  }
+}

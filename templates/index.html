@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weekly Planner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header>
+    <h1>Weekly Planner</h1>
+    <p class="subtitle">Monday – Sunday</p>
+  </header>
+
+  <main>
+    <section class="add-task">
+      <h2>Add task</h2>
+      <form id="add-form">
+        <label for="day">Day</label>
+        <select id="day" name="day" required>
+          {% for num, name in day_names.items() %}
+          <option value="{{ num }}">{{ name }}</option>
+          {% endfor %}
+        </select>
+        <label for="title">Task</label>
+        <input type="text" id="title" name="title" placeholder="What to do?" required maxlength="255">
+        <button type="submit">Add</button>
+      </form>
+      <p id="form-message" class="message" aria-live="polite"></p>
+    </section>
+
+    <section class="week">
+      <h2>This week</h2>
+      <div class="days" id="week">
+        {% for num, name in day_names.items() %}
+        <div class="day-column" data-day="{{ num }}">
+          <h3>{{ name }}</h3>
+          <ul class="task-list" id="day-{{ num }}"></ul>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
